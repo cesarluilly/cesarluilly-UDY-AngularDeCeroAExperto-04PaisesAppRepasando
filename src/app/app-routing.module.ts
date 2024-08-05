@@ -19,6 +19,13 @@ const routes: Routes = [
   component: ContactPageComponent
 },
 {
+  path:'countries',
+  // El import es una promesa. Y esta es la sintaxis, es rara
+  //    pero solo hay que seguir el formato.
+  loadChildren: () => import ('./countries/countries.module')
+    .then( m => m.CountriesModule)
+},
+{
   path:'**',
   // redirectTo:'home'
   redirectTo:''

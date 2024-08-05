@@ -14,11 +14,6 @@
   <div class="col">
     <hr>
 
-    <ul>
-      <li *ngFor="let item of countries">
-        {{item.capital }} - {{item.population}}
-      </li>
-    </ul>
-
+    <countries-table [countries]="countries"></countries-table>
   </div>
 </div>

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Idd } from '../../interfaces/ICountry';
+import { ICountry, Idd } from '../../interfaces/ICountry';
 import { CountriesService } from '../../services/countries.service';
-import { switchMap } from 'rxjs';
+import { count, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-country-page',
@@ -11,6 +11,8 @@ import { switchMap } from 'rxjs';
   ]
 })
 export class CountryPageComponent implements OnInit{
+
+  public country?: ICountry;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -60,8 +62,7 @@ export class CountryPageComponent implements OnInit{
       }
 
       console.log('Tenemos un pais');
-
-      return;
+      return this.country = country;
     });
 
   }

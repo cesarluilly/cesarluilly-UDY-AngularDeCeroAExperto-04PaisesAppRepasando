@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ICountry } from '../../interfaces/ICountry';
+import { CountriesService } from '../../services/countries.service';
 
 @Component({
   selector: 'app-by-country-page',
@@ -8,4 +10,17 @@ import { Component } from '@angular/core';
 })
 export class ByCountryPageComponent {
 
+  public countries: ICountry[] = [];
+
+  constructor(private countriesService : CountriesService){
+
+  }
+
+  searchCountry(term: string):void {
+    this.countriesService.searchCountry(term).subscribe(
+      countries => {
+        this.countries = countries;
+      }
+    );
+  }
 }

@@ -43,4 +43,29 @@ export class CountriesService {
     );
   }
 
+  searchCountry(term: string): Observable<ICountry[]>{
+    const url = `${this.apiURL}/name/${term}`;
+
+    return this.httpClient.get<ICountry[]>(url)
+    .pipe(
+      catchError(error => {
+        console.log(error);
+
+        return of([])
+      })
+    );
+  }
+
+  searchCountryByRegion(term: string): Observable<ICountry[]>{
+    const url = `${this.apiURL}/region/${term}`;
+
+    return this.httpClient.get<ICountry[]>(url)
+    .pipe(
+      catchError(error => {
+        console.log(error);
+
+        return of([])
+      })
+    );
+  }
 }

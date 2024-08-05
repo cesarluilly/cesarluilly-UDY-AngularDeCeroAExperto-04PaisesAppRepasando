@@ -16,6 +16,22 @@ export class CountriesService {
 
   }
 
+
+  searchCountryByAlphaCode(code: string): Observable<ICountry | null>{
+    const url = `${this.apiURL}/alpha/${code}`;
+
+    return this.httpClient.get<ICountry[]>(url)
+    .pipe(
+      map(countries => countries.length > 0 ? countries[0] : null),
+      catchError(error => {
+        console.log(error);
+
+        return of(null)
+      })
+    );
+  }
+
+
   searchCapital(term: string): Observable<ICountry[]>{
     //  Como vemos, devuelve un observable, pero para que se
     //    ejecute, tenemos que suscribirnos al observable.

@@ -1,0 +1,23 @@
+<h2>Paises</h2>
+
+<hr>
+
+<ul class="list-group">
+
+  <!-- Para que esto funcione, siempre tenemos que importar el RoutingModule
+   previamente creado, donde estan las rutas -->
+   <!-- [routerLinkActiveOptions] es para idicarle que va a cumplir el
+    active cuando la ruta sea exactamente a como esta en el routerLink
+    para que se ponga activado -->
+  <li routerLink=""
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact : true}"
+  class="list-group-item">
+    Home Page
+  </li>
+  <li routerLink="about"
+  routerLinkActive="active"
+  class="list-group-item">
+    About Page
+  </li>
+</ul>

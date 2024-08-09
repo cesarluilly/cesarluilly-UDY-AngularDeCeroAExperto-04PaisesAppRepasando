@@ -27,10 +27,10 @@ export class CountriesService {
         console.log(error);
 
         return of([])
-      }),
+      })
       // Lo utilizamos para simular que el servicio esta
       //    tardando un poner un loader.
-      delay ( 2000 )
+      ,delay ( 2000 )
     );
   }
 

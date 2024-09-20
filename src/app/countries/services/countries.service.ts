@@ -27,6 +27,18 @@ export class CountriesService {
     console.log('Countries service init');
 
 
+    this.loadFromLocalStorage()
+
+  }
+
+  private saveToLocalStorage(){
+    localStorage.setItem('cacheStore', JSON.stringify(this.cacheStore));
+  }
+
+  private loadFromLocalStorage(){
+    if ( localStorage.getItem('cacheStore') ) return;
+
+    this.cacheStore = JSON.parse( localStorage.getItem('cacheStore')! );
   }
 
   private getCountriesRequest(url: string): Observable<ICountry[]> {
@@ -75,7 +87,11 @@ export class CountriesService {
       .pipe(
         // El tap no influye nada en el funcionamiento. Solo es para ejecutar o hacer algo
         //    enseguida despues de haberse consultado el servicio a traves del observable.
-        tap(countries => this.cacheStore.byCapital = { term, countries })
+        tap( countries => this.cacheStore.byCapital = { term, countries } ),
+        //  Aqui hacemos el guardado porque sabemos perfectamente que aqui es cuando se modifica la data
+        //    y tenemos la informacion mas actualizada de la ultima busquedad.
+        //  Un error comun es hacerlo tap( this.saveToLocalStorage() ) y esto rompe la relacion con this.
+        tap( () => this.saveToLocalStorage() )
       );
 
     // Podemos hacer uso de los operadores RxJS
@@ -95,7 +111,11 @@ export class CountriesService {
       .pipe(
         // El tap no influye nada en el funcionamiento. Solo es para ejecutar o hacer algo
         //    enseguida despues de haberse consultado el servicio a traves del observable.
-        tap(countries => this.cacheStore.byCountries = { term, countries })
+        tap(countries => this.cacheStore.byCountries = { term, countries }),
+        //  Aqui hacemos el guardado porque sabemos perfectamente que aqui es cuando se modifica la data
+        //    y tenemos la informacion mas actualizada de la ultima busquedad.
+        //  Un error comun es hacerlo tap( this.saveToLocalStorage() ) y esto rompe la relacion con this.
+        tap( () => this.saveToLocalStorage() )
       );
   }
 
@@ -106,7 +126,11 @@ export class CountriesService {
       .pipe(
         // El tap no influye nada en el funcionamiento. Solo es para ejecutar o hacer algo
         //    enseguida despues de haberse consultado el servicio a traves del observable.
-        tap(countries => this.cacheStore.byRegion = { region, countries })
+        tap(countries => this.cacheStore.byRegion = { region, countries }),
+        //  Aqui hacemos el guardado porque sabemos perfectamente que aqui es cuando se modifica la data
+        //    y tenemos la informacion mas actualizada de la ultima busquedad.
+        //  Un error comun es hacerlo tap( this.saveToLocalStorage() ) y esto rompe la relacion con this.
+        tap( () => this.saveToLocalStorage() )
       );
   }
 }

@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { ICountry } from '../../interfaces/ICountry';
 import { CountriesService } from '../../services/countries.service';
 
-type Region = 'Africa' | 'Americas' | 'Asia' | 'Europe' | 'Oceania';
+
+import { ICountry } from '../../interfaces/ICountry';
+import { TypeRegion } from '../../interfaces/region.type';
+
+
 
 @Component({
   selector: 'app-by-region-page',
@@ -12,8 +15,8 @@ type Region = 'Africa' | 'Americas' | 'Asia' | 'Europe' | 'Oceania';
 })
 export class ByRegionPageComponent {
   public countries: ICountry[] = [];
-  public regions: Region[] = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
-  public selectedRegion?: Region;
+  public regions: TypeRegion[] = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
+  public selectedRegion?: TypeRegion;
 
 
 
@@ -21,7 +24,7 @@ export class ByRegionPageComponent {
 
   }
 
-  searchRegion(region: Region):void {
+  searchRegion(region: TypeRegion):void {
 
     this.selectedRegion = region;
     this.countriesService.searchCountryByRegion(region).subscribe(

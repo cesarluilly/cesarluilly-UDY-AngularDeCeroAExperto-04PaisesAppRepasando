@@ -2,16 +2,28 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, delay, map, Observable, of, tap } from 'rxjs';
 import { ICountry } from '../interfaces/ICountry';
+import { ICacheStore } from '../interfaces/cache-store.interface';
 
 
 
-
+// Los servicios funcionan con inyeccion de dependencia, a traves de
+//  singleton, es decir una unica instancia para toda la
+//  la aplicacion.
 @Injectable({providedIn: 'root'})
 export class CountriesService {
 
   private apiURL:string = 'https://restcountries.com/v3.1'
 
+
+  public cacheStore : ICacheStore = {
+    byCapital:      {term: '', countries: [] },
+    byCountries:    {term: '', countries: [] },
+    byRegion:       {region: '', countries: [] }
+
+  };
+
   constructor(private httpClient: HttpClient) {
+    console.log('Countries service init');
 
 
   }

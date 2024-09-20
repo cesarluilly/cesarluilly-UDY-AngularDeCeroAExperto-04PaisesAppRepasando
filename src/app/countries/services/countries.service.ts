@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, delay, map, Observable, of, tap } from 'rxjs';
 import { ICountry } from '../interfaces/ICountry';
 import { ICacheStore } from '../interfaces/cache-store.interface';
+import { TypeRegion } from '../interfaces/region.type';
 
 
 
@@ -70,7 +71,12 @@ export class CountriesService {
 
     const url = `${this.apiURL}/capital/${term}`;
 
-    return this.getCountriesRequest(url);
+    return this.getCountriesRequest(url)
+      .pipe(
+        // El tap no influye nada en el funcionamiento. Solo es para ejecutar o hacer algo
+        //    enseguida despues de haberse consultado el servicio a traves del observable.
+        tap(countries => this.cacheStore.byCapital = { term, countries })
+      );
 
     // Podemos hacer uso de los operadores RxJS
     // return this.httpClient.get<ICountry[]>(url)
@@ -85,12 +91,22 @@ export class CountriesService {
   searchCountry(term: string): Observable<ICountry[]>{
     const url = `${this.apiURL}/name/${term}`;
 
-    return this.getCountriesRequest(url);
+    return this.getCountriesRequest(url)
+      .pipe(
+        // El tap no influye nada en el funcionamiento. Solo es para ejecutar o hacer algo
+        //    enseguida despues de haberse consultado el servicio a traves del observable.
+        tap(countries => this.cacheStore.byCountries = { term, countries })
+      );
   }
 
-  searchCountryByRegion(term: string): Observable<ICountry[]>{
-    const url = `${this.apiURL}/region/${term}`;
+  searchCountryByRegion(region: TypeRegion): Observable<ICountry[]>{
+    const url = `${this.apiURL}/region/${region}`;
 
-    return this.getCountriesRequest(url);
+    return this.getCountriesRequest(url)
+      .pipe(
+        // El tap no influye nada en el funcionamiento. Solo es para ejecutar o hacer algo
+        //    enseguida despues de haberse consultado el servicio a traves del observable.
+        tap(countries => this.cacheStore.byRegion = { region, countries })
+      );
   }
 }

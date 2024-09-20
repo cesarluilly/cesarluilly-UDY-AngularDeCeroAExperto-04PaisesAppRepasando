@@ -4,8 +4,11 @@
 <div class="row">
   <div class="col">
     <!-- SearchBox -->
+     <!-- [] hacemos que lo va a recibir un decorador de Input -->
+      <!-- () hacemos que lo va a sacar un decorador de Output a traves de un event emit-->
      <shared-search-box
-        (OnValueCesar)="searchCountry($event)"
+        [initialValue] = "initialValue"
+        (OnDebounce)="searchCountry($event)"
         placeholdercesar="Buscar por capital"></shared-search-box>
   </div>
 </div>

@@ -4,7 +4,7 @@ import { TypeRegion } from "./region.type";
 export interface ICacheStore {
   byCapital     : ITermCountries;
   byCountries   : ITermCountries;
-  byRegion: RegionCountries;
+  byRegion: IRegionCountries;
 }
 
 export interface ITermCountries {
@@ -12,7 +12,7 @@ export interface ITermCountries {
   countries: ICountry[];
 }
 
-export interface RegionCountries {
+export interface IRegionCountries {
   region: TypeRegion;
   countries: ICountry[];
 }

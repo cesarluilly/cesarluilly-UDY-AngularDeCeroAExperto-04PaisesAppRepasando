@@ -21,8 +21,12 @@ export class SearchBoxComponent implements OnInit, OnDestroy{
   private debouncerSescription? : Subscription;
 
   @Input()
-  public placeholdercesar: string = ''
+  public initialPlaceholder: string = ''
 
+  @Input()
+  public initialValue: string = ''
+
+  //                        Ya no se utiliza ahorita, solo se utilizo para la primera fase.
   @Output()
   public OnValueCesar: EventEmitter<string> =  new EventEmitter<string>();
 
